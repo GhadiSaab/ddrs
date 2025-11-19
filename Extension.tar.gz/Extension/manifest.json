@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "Browser Response",
+  "version": "1.0",
+  "description": "This extension will help you to get the values from a json like if it was a browser",
+  "action" : {
+    "default_popup": "popup.html"
+  }
+}

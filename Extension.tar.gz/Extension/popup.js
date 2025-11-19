@@ -1,0 +1,855 @@
+const data = [
+  {
+    question: "Que représentent les basses technologies (low tech), indiquer les affirmations fausses ?",
+    choix: [
+      {
+        intitule: "Les low tech sont technophobes.",
+        est_correct: true
+      },
+      {
+        intitule: "Les low tech désignent une catégorie de produits, de services, de procédés ou autres systèmes permettant, via une transformation technique, organisationnelle et culturelle, le développement de nouveaux modèles de société intégrant, dans leurs principes fondamentaux, les exigences de durabilité forte et de résilience collective.",
+        est_correct: false
+      },
+      {
+        intitule: "Les technologies low tech cherchent à être simples, bien pensées, bien dimensionnées et réparables.",
+        est_correct: false
+      },
+      {
+        intitule: "Les low tech ne sont pas une solution là où la maintenance dépend de systèmes sophistiqués.",
+        est_correct: true
+      },
+      {
+        intitule: "L'objectif principal de la low tech est d'initier un mouvement global afin de baisser le plus rapidement possible notre empreinte écologique et anticiper la descente énergétique et matérielle des années et des décennies à venir.",
+        est_correct: false
+      },
+      {
+        intitule: "Les low tech s'accordent au principe de techno-discernement.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher les affirmations justes",
+    choix: [
+      {
+        intitule: "Un système de production d'énergie doit pouvoir s'adapter à la demande.",
+        est_correct: true
+      },
+      {
+        intitule: "La puissance est la quantité totale d'énergie utilisée sur un laps de temps.",
+        est_correct: false
+      },
+      {
+        intitule: "La puissance installée est jamais atteinte car elle suppose un fonctionnement optimal (qui n'est jamais observé en condition réelles).",
+        est_correct: true
+      },
+      {
+        intitule: "Pour développer un système de production d'énergie, il suffit de produire la puissance moyenne.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). L'énergie grise d'un produit/service",
+    choix: [
+      {
+        intitule: "Est généralement cachée pour l'utilisateur qui ne paye que l'énergie pour l'utilisation. En effet, l'énergie pour la conception et la fabrication est très rarement indiquée bien qu'incluse dans le prix d'achat.",
+        est_correct: true
+      },
+      {
+        intitule: "Correspond à toute l'énergie nécessaire de la conception à la fin de vie (destruction/recyclage) en incluant son utilisation.",
+        est_correct: false
+      },
+      {
+        intitule: "Est souvent négligeable par rapport à l'énergie d'utilisation.",
+        est_correct: false
+      },
+      {
+        intitule: "Est souvent prépondérante par rapport à l'énergie d'utilisation.",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) erronée(s). Quelle(s) définition(s) de la résilience est/sont fausse(s) ?",
+    choix: [
+      {
+        intitule: "En physique, elle caractérise la résistance au choc d'un métal.",
+        est_correct: false
+      },
+      {
+        intitule: "En écologie, elle indique la capacité d'un écosystème ou d'une espèce à retrouver un état d'équilibre après un évènement exceptionnel.",
+        est_correct: false
+      },
+      {
+        intitule: "En informatique, elle correspond à la capacité d'un système ou d'un réseau à continuer de fonctionner en cas de panne.",
+        est_correct: false
+      },
+      {
+        intitule: "En développement durable, elle représente la capacité d'une société à pouvoir créer de la croissance économique après un effondrement.",
+        est_correct: true
+      },
+      {
+        intitule: "En psychologie, elle représente la capacité à surmonter les chocs traumatiques.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher les affirmations justes",
+    choix: [
+      {
+        intitule: "L'utilisation de la biomasse d'une forêt est forcément une énergie primaire renouvelable.",
+        est_correct: true
+      },
+      {
+        intitule: "Une énergie est renouvelable si elle dérive de processus naturel.",
+        est_correct: true
+      },
+      {
+        intitule: "L'utilisation de la biomasse d'une forêt est forcément une énergie primaire durable.",
+        est_correct: false
+      },
+      {
+        intitule: "Une énergie durable est forcément renouvelable.",
+        est_correct: true
+      },
+      {
+        intitule: "Une énergie renouvelable est forcément durable.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). Quelles affirmations sont caractéristiques de la durabilité d'un produit ?",
+    choix: [
+      {
+        intitule: "C'est le temps pendant lequel il remplit sa fonction même s'il vieillit.",
+        est_correct: true
+      },
+      {
+        intitule: "C'est le contenu du cahier des charges fonctionnel d'un produit durable.",
+        est_correct: false
+      },
+      {
+        intitule: "C'est l'ensemble des caractéristiques techniques qui définissent le caractère durable d'un produit.",
+        est_correct: false
+      },
+      {
+        intitule: "C'est l'analyse coût bénéfice d'un produit durable.",
+        est_correct: false
+      },
+      {
+        intitule: "C'est la capacité d'un produit physique à rester fonctionnel, sans nécessiter de maintenance ou de réparation excessive, lorsqu'il est confronté aux défis d'un fonctionnement normal au cours de sa vie nominale.",
+        est_correct: true
+      },
+      {
+        intitule: "C'est le contenu du cahier des charges environnemental d'un produit durable.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). Que représente une réserve minérale ?",
+    choix: [
+      {
+        intitule: "La partie de la ressource techniquement exploitable.",
+        est_correct: false
+      },
+      {
+        intitule: "La quantité totale d'une matière première présente dans la croûte terrestre.",
+        est_correct: false
+      },
+      {
+        intitule: "La partie de la ressource dont la localisation, la typologie, la qualité et la quantité sont connus grâce à des preuves géologiques précises.",
+        est_correct: false
+      },
+      {
+        intitule: "La partie de la ressource récupérable de manière environnementalement soutenable.",
+        est_correct: false
+      },
+      {
+        intitule: "La partie de la ressource économiquement exploitable.",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "Cocher les points ci-dessous qui ne sont pas des frontières planétaires ?",
+    choix: [
+      {
+        intitule: "La consommation d'eau douce.",
+        est_correct: false
+      },
+      {
+        intitule: "Diminution de l'ozone stratosphérique.",
+        est_correct: false
+      },
+      {
+        intitule: "La consommation des ressources fossiles.",
+        est_correct: true
+      },
+      {
+        intitule: "Les dommages sur la santé humaine.",
+        est_correct: true
+      },
+      {
+        intitule: "La montée des eaux.",
+        est_correct: true
+      },
+      {
+        intitule: "L'acidification des eaux.",
+        est_correct: false
+      },
+      {
+        intitule: "L'érosion de l'intégrité de la biosphère",
+        est_correct: false
+      },
+      {
+        intitule: "L'épuisement des ressources minérales.",
+        est_correct: true
+      },
+      {
+        intitule: "La charge en aérosols atmosphériques.",
+        est_correct: false
+      },
+      {
+        intitule: "La perturbation des cycles biochimiques.",
+        est_correct: false
+      },
+      {
+        intitule: "L'introduction de nouvelles entités dans l'environnement.",
+        est_correct: false
+      },
+      {
+        intitule: "Le réchauffement climatique.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). Les énergies primaires",
+    choix: [
+      {
+        intitule: "Ont des applications très différentes et il est dont difficile de remplacer une énergie primaire par une autre.",
+        est_correct: true
+      },
+      {
+        intitule: "Ont chacune leurs avantages et leurs inconvénients.",
+        est_correct: true
+      },
+      {
+        intitule: "Sont toutes équivalentes et interchangeables.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). Le EROI (Energy Return On Investment)",
+    choix: [
+      {
+        intitule: "Augmente au cours du temps car les technologies se développent.",
+        est_correct: false
+      },
+      {
+        intitule: "Diminue au cours du temps pour les énergies de stock.",
+        est_correct: true
+      },
+      {
+        intitule: "Mesure la rentabilité énergétique d'un système de stockage d'énergie.",
+        est_correct: false
+      },
+      {
+        intitule: "Caractérise la facilité à exploiter une source d'énergie.",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). Que représente une ressource minérale ?",
+    choix: [
+      {
+        intitule: "La quantité totale de minerai techniquement et économiquement récupérables.",
+        est_correct: false
+      },
+      {
+        intitule: "La quantité totale d'un minerai présente dans la croûte terrestre.",
+        est_correct: true
+      },
+      {
+        intitule: "La quantité de minerai dont le taux de récupération est connu.",
+        est_correct: false
+      },
+      {
+        intitule: "Une ressource récupérable de manière environnementalement soutenable.",
+        est_correct: false
+      },
+      {
+        intitule: "Une ressource dont la localisation, la typologie, la qualité et la quantité sont connus grâce à des preuves géologiques précises et récupérable à court terme.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). Que représente la capacité de charge d'un milieu ?",
+    choix: [
+      {
+        intitule: "Elle indique la capacité du milieu à se développer sans intéraction avec la faune.",
+        est_correct: false
+      },
+      {
+        intitule: "Elle désigne le nombre maximum d'individus qu'un territoire donné peut tolérer sans que la ressource ne subisse de dégradation irrémédiable.",
+        est_correct: true
+      },
+      {
+        intitule: "Elle mesure la capacité du milieu à résister à la pollution.",
+        est_correct: false
+      },
+      {
+        intitule: "Elle mesure la résilience d'un milieu.",
+        est_correct: false
+      },
+      {
+        intitule: "Elle qualifie les ressources renouvelables d'un milieu.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) erronée(s). Quelle(s) définition(s) de l'écoconception est/sont fausse(s) ?",
+    choix: [
+      {
+        intitule: "L'écoconception est une approche durable de conception des produits dont l'objectif prioritaire est la diminution des impacts environnementaux des produits.",
+        est_correct: true
+      },
+      {
+        intitule: "L'écoconception est une approche de conception qui intègre les réglementations environnementales en plus des cahiers des charges fonctionnel et technique d'un produit.",
+        est_correct: true
+      },
+      {
+        intitule: "L'écoconception est une approche dès l'amont d'un processus de conception visant à trouver le meilleur équilibre entre les exigences, environnementales, sociales, techniques et économiques dans la conception et le développement de produits.",
+        est_correct: false
+      },
+      {
+        intitule: "Elle correspond à l'intégration systématique des aspects environnementaux dès la conception et le développement de produits (bien et services, système) avec pour objectif la réduction des impacts environnementaux négatifs tout au long de leur cycle de vie à service rendu équivalent ou supérieur.",
+        est_correct: false
+      },
+      {
+        intitule: "C'est une approche méthodique qui prend en considération les aspects environnementaux du processus de conception et de développement dans le but de réduire les impacts environnementaux négatifs tout au long du cycle de vie d'un produit.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) erronée(s). Quelle(s) affirmation(s) est(sont) valides pour une trajectoire de durabilité forte",
+    choix: [
+      {
+        intitule: "Une trajectoire de durabilité forte hiérarchise les trois dimensions (sociale, économique et écologique) : l'économie devant être au service du social, dans les limites de l'environnement",
+        est_correct: true
+      },
+      {
+        intitule: "Elle est basée sur le principe de la substitution entre capital artificiel (richesse créée) et capital naturel (ressource naturelle)",
+        est_correct: false
+      },
+      {
+        intitule: "Les trois formes de capital : économique, humain, naturel sont interchangeables",
+        est_correct: false
+      },
+      {
+        intitule: "Une trajectoire de durabilité est technocentrée",
+        est_correct: false
+      },
+      {
+        intitule: "Une trajectoire de durabilité forte est une trajectoire basée sur la sobriété",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "Quelles définitions d'un matériau critique sont fausse(s) ?",
+    choix: [
+      {
+        intitule: "Un matériau dont les spécificités techniques indiquent des risques sanitaires",
+        est_correct: true
+      },
+      {
+        intitule: "Un matériau critique est un matériau dont l'approvisionnement peut être sujet à des aléas et dont le défaut peut avoir des impacts industriels ou économiques négatifs importants",
+        est_correct: false
+      },
+      {
+        intitule: "Un matériau non renouvelable dans la durée de vie de la réserve est inférieur à 30 ans",
+        est_correct: true
+      },
+      {
+        intitule: "Un matériau dont les spécificités techniques indiquent des risques pour l'environnement",
+        est_correct: true
+      },
+    ]
+  },
+  {
+    question: "Cocher la/les affirmations eronnée(s). Quelle(s) affirmation(s) n'est pas en accord avec une trajectoire de durabilité faible ?",
+    choix: [
+      {
+        intitule: "Une trajectoire de durabilité faible n'interroge pas le caractère soutenable du développement économique linéaire",
+        est_correct: true
+      },
+      {
+        intitule: "Une trajectoire de durabilité faible est basée sur la croyance que le progrès technique peut assure la pérennité de la société humaine",
+        est_correct: false
+      },
+      {
+        intitule: "Une trajectoire de durabilité faible cherche un compromis entre les dimensions économiques, sociales et environnementales pour assurer la pérennité de la société humaine",
+        est_correct: false
+      },
+      {
+        intitule: "Une trajectoire de durabilité faible est basée sur l'acceptation du concept de décroissance",
+        est_correct: true
+      },
+      {
+        intitule: "Les trois formes de capital : économique, humain, naturel sont interchangeables",
+        est_correct: false
+      },
+    ]
+  },
+  {
+    question: "Cocher la/les réponse(s) juste(s). La consommation d'énergie (direct et indirecte)",
+    choix: [
+      {
+        intitule: "Vaut environ 20 MWh / an / personne à l'échelle du monde",
+        est_correct: true
+      },
+      {
+        intitule: "Vaut environ 5 tep (tonne équivalent pétrole) / an / personne pour un français",
+        est_correct: true
+      },
+      {
+        intitule: "Vaut environ 50 MWh / an / personne pour un français",
+        est_correct: true
+      },
+      {
+        intitule: "Vaut environ 20 MWh / an / personne à l'échelle d'un pays développé (États-Unis, France,...)",
+        est_correct: false
+      },
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). Que représente une unité fonctionnelle d'un produit ou service",
+    choix: [
+      {
+        intitule: "Les flux d'extraction de matières premières pour générer le produit ou service",
+        est_correct: false
+      },
+      {
+        intitule: "La fonction du produit ou service",
+        est_correct: false
+      },
+      {
+        intitule: "La quantification unitaire de l'empreinte écologique d'un produit ou service",
+        est_correct: false
+      },
+      {
+        intitule: "Les flux d'émissions associés au cycle de vie du produit ou service dans la technosphere",
+        est_correct: false
+      },
+      {
+        intitule: "Le service rendu par le produit",
+        est_correct: true
+      },
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). Que représente l'ACV D'un produit ou service?",
+    choix: [
+      {
+        intitule: "Analyse du cycle de vie d'un produit ou service",
+        est_correct: true
+      },
+      {
+        intitule: "Analyse cyclique de vieillissement d'un produit ou service",
+        est_correct: false
+      },
+      {
+        intitule: "Autorisation ciblée de vie durable d'un service ou produit",
+        est_correct: false
+      },
+      {
+        intitule: "Analyse cyclique de vétusté d'un produit ou service",
+        est_correct: false
+      },
+      {
+        intitule: "Analyse du cycle de vitalité d'un produit ou service",
+        est_correct: false
+      },
+    ]
+  },
+  {
+    question: "Cocher la/les affirmations justes. Que représente l'anthropocène ?",
+    choix: [
+      {
+        intitule: "La période dite de révolution biologique (environ 3 millions d'années) correspondant à l'apparition des homos et des outils de la bipédie et de l'alimentation omnivore",
+        est_correct: false
+      },
+      {
+        intitule: "La période correspondant à la révolution énergétique (depuis le début du XVIIIeme siècle.",
+        est_correct: false
+      },
+      {
+        intitule: "La période correspondant où l'activité humaine est devenue la force dominante devant toutes les autres forces géologique et naturelles qui avaient prévalu jusque-là ",
+        est_correct: true
+      },
+      {
+        intitule: "La période correspondant à la révolution axiale (à partir de 2500 ans) ou les sociétés rentrent en connexion sur les longues distances et génèrent des collectivités",
+        est_correct: false
+      },
+      {
+        intitule: "La période correspondant à la révolution cognitive (entre -50000 et -40000 ans) ou le feu et le langage se développent.",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmations justes",
+    choix: [
+      {
+        intitule: "Nécessite moins de surface au sol pour le système énergétique qu'un monde basé sur des énergies carbonées",
+        est_correct: false
+      },
+      {
+        intitule: "C'est impossible avec les besoins actuels.",
+        est_correct: true
+      },
+      {
+        intitule: "Nécessite plus de matériaux pour le système énergétique qu'un monde basé sur les énergies carbonées",
+        est_correct: false
+      },
+      {
+        intitule: "C'est simple: il suffit de remplacer les énergies non renouvelables par de l'hydroélectricité, des éoliennes et des panneaux solaires",
+        est_correct: false
+      },
+      {
+        intitule: "C'est possible, d'ailleurs c'était le cas pendant longtemps",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). Un monde 100% ENR(base uniquement sur des énergies renouvelables)",
+    choix: [
+      {
+        intitule: "Nécessite moins de surface de sol pour le système énergétique qu'un monde basé sur des énergies carbonées",
+        est_correct: false
+      },
+      {
+        intitule: "C'est impossible avec les besoins actuels",
+        est_correct: true
+      },
+      {
+        intitule: "Nécessite plus de matériaux pour le système énergétique qu'un monde basé sur des énergies carbonées",
+        est_correct: true
+      },
+      {
+        intitule: "C'est simple: il suffit de remplacer les énergies non renouvelables par de l'hydroélectricité, des éoliennes et des panneaux solaires",
+        est_correct: false
+      },
+      {
+        intitule: "C'est possible, d'ailleurs c'était le cas pendant longtemps",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "Cocher les affirmations justes",
+    choix: [
+      {
+        intitule: "Les énergies renouvelables sont des énergies de stocks",
+        est_correct: false
+      },
+      {
+        intitule: "Les énergies de stocks ne peuvent pas être durables sur le long terme",
+        est_correct: true
+      },
+      {
+        intitule: "Les énergies de stocks sont principalement décarbonnées",
+        est_correct: false
+      },
+      {
+        intitule: "Les énergies de flux nécessitent de pouvoir stocker l'énergie pour exploiter leur plein potentiel",
+        est_correct: true
+      },
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). On considère un système de production d'énergie éolienne. Qu'elle(s) affirmation(s) corresponde(nt) à un fonctionnement cohérent avec une économie circulaire?",
+    choix: [
+      {
+        intitule: "L'éolienne produit au moins autant que son énergie grise mais son cycle de vie reste linéaire",
+        est_correct: false
+      },
+      {
+        intitule: "L'éolienne est bien recyclée et permet de produire au moins autant que son énergie grise",
+        est_correct: true
+      },
+      {
+        intitule: "L'éolienne est bien recyclée en fin de vie dans une démarche circulaire, indépendamment de l'énergie qu'elle produit",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Pour maintenir la croissance du PIB et atteindre la neutralité carbone d'ici 2050, il faut accélérer le déploiement des énergies décarbonnées par",
+    choix: [
+      {
+        intitule: "5",
+        est_correct: false
+      },
+      {
+        intitule: "3",
+        est_correct: true
+      },
+      {
+        intitule: "2",
+        est_correct: false
+      },
+      {
+        intitule: "10",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "L'équation de Kaya fait intervenir",
+    choix: [
+      {
+        intitule: "le taux de croissance du pays",
+        est_correct: false
+      },
+      {
+        intitule: "la quantité de gaz à effet de serre émise par kWh d'énergie primaire produite",
+        est_correct: true
+      },
+      {
+        intitule: "les émissions de gaz à effet de serre par personne",
+        est_correct: false
+      },
+      {
+        intitule: "l'efficacité du système énergétique",
+        est_correct: true
+      },
+      {
+        intitule: "la demande moyenne de richess par personne",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "L'équation de Kaya fait le lien entre",
+    choix: [
+      {
+        intitule: "la production d'énergie primaire et la population",
+        est_correct: false
+      },
+      {
+        intitule: "les émissions de gaz à effet de serre et la population",
+        est_correct: true
+      },
+      {
+        intitule: "la production d'énergie primaire et le produit intérieur brut",
+        est_correct: false
+      },
+      {
+        intitule: "la population et le produit intérieur brut",
+        est_correct: false
+      },
+      {
+        intitule: "les émissions de gaz à effet de serre et le produit intérieur brut",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "En 2023, l'empreinte écologique mondiale est d'environ 18 milliards d'hectares globaux (hag); la biocapacité globale est d'environ 12 milliards d'hag. Calculer l'offre en planète équivalente pour subvenir aux besoins de l'humanité en 2023.",
+    choix: [
+      {
+        intitule: "0.66 planète Terre",
+        est_correct: false
+      },
+      {
+        intitule: "1 planète Terre",
+        est_correct: false
+      },
+      {
+        intitule: "30 planètes Terre",
+        est_correct: false
+      },
+      {
+        intitule: "5 planète Terre",
+        est_correct: false
+      },
+      {
+        intitule: "1.5 planète Terre",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "Quel est le point requis pour qualifier un changement d'époque géologique?",
+    choix: [
+      {
+        intitule: "Un marqueur de changement d'acidifcation des océans",
+        est_correct: false
+      },
+      {
+        intitule: "Un marque atmosphérique",
+        est_correct: false
+      },
+      {
+        intitule: "Un marquer stratigraphique global",
+        est_correct: true
+      },
+      {
+        intitule: "Un marqueur d'eutrophisation des océans",
+        est_correct: false
+      },
+      {
+        intitule: "Un marqueur géochimique",
+        est_correct: false
+      }
+    ]
+  },
+  {
+    question: "Calculer la durée de vie de la réserve de cuivre à partir des données suivantes (valeurs fictives): réserve 419 Mt, ressource 1743,04 Mt, production 4,5 Mt/an",
+    choix: [
+      {
+        intitule: "0,003",
+        est_correct: false
+      },
+      {
+        intitule: "387,342",
+        est_correct: false
+      },
+      {
+        intitule: "0,989",
+        est_correct: false
+      },
+      {
+        intitule: "0,011",
+        est_correct: false
+      },
+      {
+        intitule: "93,111",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "Selon un rapport publié par le ShiftProject, comment doit évoluer la production des 16 premiers importateurs de pétrole vers l'Europe d'ici 2050",
+    choix: [
+      {
+        intitule: "la production de pétrole devrait être divisée par 1.25",
+        est_correct: false
+      },
+      {
+        intitule: "la production de pétrole devrait être multiplié par 1.25",
+        est_correct: false
+      },
+      {
+        intitule: "la production de pétrole devrait être divisée par 3",
+        est_correct: false
+      },
+      {
+        intitule: "la production de pétrole devrait être constante",
+        est_correct: false
+      },
+      {
+        intitule: "la production de pétrole devrait être divisée par 2",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "Cocher la/les affirmation(s) juste(s). Stockage de l'énergie",
+    choix: [
+      {
+        intitule: "1000kg d'eau à 100m d'altitude permet de stocker autant d'énergie que dans 1L de pétrole",
+        est_correct: false
+      },
+      {
+        intitule: "C'est facile, il suffit d'équiper les barrages existants pour répondre aux besoins de stockage en France",
+        est_correct: false
+      },
+      {
+        intitule: "Le potentiel de stockage des énergies de stock (gaz, charbon, pétrole, nucléaire) est nettement plus faible que dans les batteries Li-ion.",
+        est_correct: false
+      },
+      {
+        intitule: "Est obligatoire si l'on veut pleinement exploiter le potentiel des énergies renouvelables",
+        est_correct: true
+      },
+      {
+        intitule: "Est une problématique liée principalement aux énergies de flux",
+        est_correct: true
+      }
+    ]
+  },
+  {
+    question: "Cochez le/les réponse(s) justes",
+    choix: [
+      {
+        intitule: "La puissance moyenne (P2) vaut toujours 2 fois la puissance minimale (P3)",
+        est_correct: false
+      },
+      {
+        intitule: "Il faut du stockage d'énergie pour pouvoir garantir que la puissance P1 soit disponible à chaque instant.",
+        est_correct: false
+      },
+      {
+        intitule: "La puissance installée est au moins supérieure à la valeur P1.",
+        est_correct: true
+      },
+      {
+        intitule: "Pour exploiter ces ressoures renouvelables à leur plein potentiel, il faut une puissance installée au moins supérieure à P1 et du stockage de l'énergie.",
+        est_correct: true
+      },
+      {
+        intitule: "Sans stockage, la puissance garantie à chaque instant est la valeur de P2",
+        est_correct: false
+      }
+    ]
+  }
+
+];
+
+const input = document.getElementById('input');
+const content = document.getElementById('content');
+
+input.addEventListener('keydown', function() {
+  let responses = getResponse(input.value);
+  content.innerHTML = '';
+  for (let i = 0; i < responses.length; i++) {
+    let p = document.createElement('p');
+    let b = document.createElement('b');
+    let hr = document.createElement('hr');
+    p.innerHTML = responses[i].reponse;
+    b.innerHTML = responses[i].question;
+    content.appendChild(b);
+    content.appendChild(p);
+    content.appendChild(hr);
+  }
+});
+
+const getResponse = (response) => {
+  let responses = [];
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].question.toLowerCase().includes(response.toLowerCase())) {
+      for (let j = 0; j < data[i].choix.length; j++) {
+        if (data[i].choix[j].est_correct) {
+          responses.push({
+            reponse: data[i].choix[j].intitule,
+            question: data[i].question
+          });
+        }
+      }
+    }
+  }
+  return responses;
+}

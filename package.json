@@ -1,0 +1,19 @@
+{
+  "name": "quiz-ddrs",
+  "version": "1.0.0",
+  "description": "Quiz interactif sur le Développement Durable et la Responsabilité Sociétale",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "quiz",
+    "education",
+    "développement durable",
+    "sustainability",
+    "DDRS"
+  ],
+  "author": "",
+  "license": "MIT"
+}
