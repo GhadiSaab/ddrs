@@ -212,13 +212,17 @@
         }
 
         .buttons {
-            display: flex;
+            display: grid;
+            grid-template-columns: auto 1fr;
             gap: 15px;
             margin-top: 30px;
         }
 
+        .buttons button:only-child {
+            grid-column: 1 / -1;
+        }
+
         .btn {
-            flex: 1;
             padding: 15px 30px;
             border: none;
             border-radius: 10px;
@@ -1069,9 +1073,22 @@
         let correctCount = 0;
         let incorrectCount = 0;
         let userAnswers = [];
+        let originalQuizData = [];
+
+        // Shuffle array function (Fisher-Yates shuffle)
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
 
         // Initialize quiz data
         function loadQuizData() {
+            // Store original data
+            originalQuizData = [...quizData];
             document.getElementById('totalQuestions').textContent = quizData.length;
             document.getElementById('maxScore').textContent = quizData.length;
         }
@@ -1084,7 +1101,13 @@
             score = 0;
             correctCount = 0;
             incorrectCount = 0;
-            userAnswers = [];
+
+            // Randomize questions on each quiz start
+            quizData = shuffleArray(originalQuizData);
+
+            // Initialize userAnswers array to store answers for all questions
+            userAnswers = new Array(quizData.length).fill(null);
+
             displayQuestion();
         }
 
@@ -1096,6 +1119,7 @@
 
             const question = quizData[currentQuestionIndex];
             const quizContent = document.getElementById('quizContent');
+            const savedAnswer = userAnswers[currentQuestionIndex];
 
             // Update progress
             const progress = ((currentQuestionIndex) / quizData.length) * 100;
@@ -1103,31 +1127,59 @@
             document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
             document.getElementById('score').textContent = score;
 
+            // Determine if question was already answered
+            const isAnswered = savedAnswer !== null;
+            const isFirstQuestion = currentQuestionIndex === 0;
+            const isLastQuestion = currentQuestionIndex === quizData.length - 1;
+
             // Create question HTML
             const questionHTML = `
                 <div class="question-container active" data-question="${currentQuestionIndex}">
                     <div class="question-text">${question.question}</div>
                     <div class="choices">
                         ${question.choix.map((choice, index) => `
-                            <div class="choice" data-index="${index}" onclick="toggleChoice(${currentQuestionIndex}, ${index})">
-                                <div class="choice-checkbox"></div>
+                            <div class="choice ${isAnswered ? 'disabled' : ''} ${savedAnswer && savedAnswer.selectedIndices.includes(index) ? 'selected' : ''} ${isAnswered && choice.est_correct ? 'correct' : ''} ${isAnswered && savedAnswer.selectedIndices.includes(index) && !choice.est_correct ? 'incorrect' : ''}" data-index="${index}" onclick="toggleChoice(${currentQuestionIndex}, ${index})">
+                                <div class="choice-checkbox">${isAnswered && (choice.est_correct || savedAnswer.selectedIndices.includes(index)) ? (choice.est_correct ? '✓' : (savedAnswer.selectedIndices.includes(index) ? '✗' : '')) : (savedAnswer && savedAnswer.selectedIndices.includes(index) ? '✓' : '')}</div>
                                 <div class="choice-text">${choice.intitule}</div>
                             </div>
                         `).join('')}
                     </div>
-                    <div class="feedback" id="feedback-${currentQuestionIndex}"></div>
+                    <div class="feedback ${isAnswered ? 'show' : ''}" id="feedback-${currentQuestionIndex}">
+                        ${isAnswered ? generateFeedbackHTML(savedAnswer, question) : ''}
+                    </div>
                     <div class="buttons">
-                        <button class="btn btn-primary" id="checkBtn-${currentQuestionIndex}" onclick="checkAnswer(${currentQuestionIndex})">
+                        <button class="btn btn-secondary" id="prevBtn-${currentQuestionIndex}" onclick="prevQuestion()" ${isFirstQuestion ? 'disabled' : ''}>
+                            ← Précédent
+                        </button>
+                        <button class="btn btn-primary" id="checkBtn-${currentQuestionIndex}" onclick="checkAnswer(${currentQuestionIndex})" style="${isAnswered ? 'display: none;' : ''}">
                             Vérifier
                         </button>
-                        <button class="btn btn-secondary" id="nextBtn-${currentQuestionIndex}" onclick="nextQuestion()" style="display: none;">
-                            Question Suivante
+                        <button class="btn btn-secondary" id="nextBtn-${currentQuestionIndex}" onclick="nextQuestion()" style="${isAnswered ? '' : 'display: none;'}">
+                            ${isLastQuestion ? 'Voir Résultats →' : 'Suivant →'}
                         </button>
                     </div>
                 </div>
             `;
 
             quizContent.innerHTML = questionHTML;
+        }
+
+        function generateFeedbackHTML(savedAnswer, question) {
+            if (savedAnswer.isCorrect) {
+                return `
+                    <h3>✓ Excellent !</h3>
+                    <p>Vous avez trouvé toutes les bonnes réponses.</p>
+                `;
+            } else {
+                const correctAnswers = savedAnswer.correctIndices.map(i => question.choix[i].intitule);
+                return `
+                    <h3>✗ Pas tout à fait</h3>
+                    <p><strong>Les réponses correctes sont :</strong></p>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        ${correctAnswers.map(answer => `<li>${answer}</li>`).join('')}
+                    </ul>
+                `;
+            }
         }
 
         function toggleChoice(questionIndex, choiceIndex) {
@@ -1190,6 +1242,21 @@
             const isFullyCorrect = selectedIndices.length === correctIndices.length &&
                 selectedIndices.every(index => correctIndices.includes(index));
 
+            // Save answer
+            userAnswers[questionIndex] = {
+                selectedIndices: selectedIndices,
+                correctIndices: correctIndices,
+                isCorrect: isFullyCorrect
+            };
+
+            // Update score only if this is the first time answering
+            if (isFullyCorrect) {
+                score++;
+                correctCount++;
+            } else {
+                incorrectCount++;
+            }
+
             // Show feedback
             const feedback = document.getElementById(`feedback-${questionIndex}`);
             feedback.classList.add('show');
@@ -1200,8 +1267,6 @@
                     <h3>✓ Excellent !</h3>
                     <p>Vous avez trouvé toutes les bonnes réponses.</p>
                 `;
-                score++;
-                correctCount++;
             } else {
                 feedback.classList.add('incorrect');
                 const correctAnswers = correctIndices.map(i => question.choix[i].intitule);
@@ -1212,7 +1277,6 @@
                         ${correctAnswers.map(answer => `<li>${answer}</li>`).join('')}
                     </ul>
                 `;
-                incorrectCount++;
             }
 
             // Update score display
@@ -1221,6 +1285,13 @@
             // Show next button, hide check button
             document.getElementById(`checkBtn-${questionIndex}`).style.display = 'none';
             document.getElementById(`nextBtn-${questionIndex}`).style.display = 'block';
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
         }
 
         function nextQuestion() {
